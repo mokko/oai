@@ -1,6 +1,7 @@
 from starlette.applications import Starlette
 from starlette.staticfiles import StaticFiles
 from starlette.responses import HTMLResponse
+from starlette.responses import JSONResponse
 from starlette.templating import Jinja2Templates
 import uvicorn
 
@@ -16,6 +17,12 @@ async def homepage(request):
     template = "index.html"
     context = {"request": request}
     return templates.TemplateResponse(template, context)
+
+@app.route('/oai')
+async def oai(request):
+    q = request.query_params
+    print(q)
+    return JSONResponse({'oai':'oai'})
 
 
 @app.route('/error')
@@ -47,4 +54,4 @@ async def server_error(request, exc):
 
 
 if __name__ == "__main__":
-    uvicorn.run(app, host='0.0.0.0', port=8000)
+    uvicorn.run(app, host='0.0.0.0', port=8000, reload=False, debug=True)
