@@ -25,6 +25,13 @@ def test_fromXML():
     
 def test_validate():
     i = Identify(
-     baseURL="www.mmm.com", deletedRecord="transient", repositoryName="M3OAI"
+        baseURL="www.mmm.com", deletedRecord="transient", repositoryName="M3OAI"
     )
+    i.adminEmail.append("m3@gmail.com")
+    i.toFile(path="identify2.xml")
+    print(i.toString())
+    i.validate()
+
+def test_validate2():
+    i = Identify.fromFile(path="identify.xml")
     i.validate()
